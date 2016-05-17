@@ -3,6 +3,7 @@
 Game::Game(QWidget *parent)
     : QWidget(parent)
 {
+	setWindowTitle("ABC");
 }
 
 Game::~Game()
