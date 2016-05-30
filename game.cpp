@@ -1,4 +1,5 @@
 #include "game.h"
+#include <QtWidgets>
 
 Game::Game(QWidget *parent)
     : QWidget(parent)
@@ -9,4 +10,19 @@ Game::Game(QWidget *parent)
 Game::~Game()
 {
 
+}
+
+void Game::update()
+{
+
+}
+
+void Game::render()
+{
+
+}
+
+bool Game::isRunning()
+{
+    return running;
 }
