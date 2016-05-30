@@ -3,7 +3,7 @@
 Game::Game(QWidget *parent)
     : QWidget(parent)
 {
-	setWindowTitle("ABC");
+    setWindowTitle("Psychic Giggle");
 }
 
 Game::~Game()
