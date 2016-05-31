@@ -14,9 +14,17 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         game.cpp \
-    basicdatafile.cpp
+    basicdatafile.cpp \
+    state.cpp \
+    renderable.cpp \
+    renderablegroup.cpp \
+    simplebutton.cpp
 
 HEADERS  += game.h \
-    basicdatafile.h
+    basicdatafile.h \
+    state.h \
+    renderable.h \
+    renderablegroup.h \
+    simplebutton.h
 
 RESOURCES = resources.qrc

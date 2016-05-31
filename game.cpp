@@ -1,10 +1,17 @@
 #include "game.h"
 #include <QtWidgets>
+#include "state.h"
 
 Game::Game(QWidget *parent)
     : QWidget(parent)
 {
     setWindowTitle("Psychic Giggle");
+    setMinimumSize(800, 600);
+    setMouseTracking(true);
+    int id = QFontDatabase::addApplicationFont(":/assets/kenvector_future.ttf");
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont font(family);
+    QApplication::setFont(font);
 }
 
 Game::~Game()
@@ -14,13 +21,16 @@ Game::~Game()
 
 void Game::update()
 {
-
+    if (state != NULL)
+        state->internal_update();
 }
 
 void Game::render()
 {
-
+    repaint();
 }
+
+
 
 bool Game::isRunning()
 {
@@ -30,4 +40,61 @@ bool Game::isRunning()
 void Game::closeEvent (QCloseEvent *)
 {
     running = false;
+}
+
+void Game::paintEvent(QPaintEvent *)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
+    painter.setRenderHint(QPainter::Antialiasing, false);
+    painter.setRenderHint(QPainter::HighQualityAntialiasing, false);
+    painter.setRenderHint(QPainter::TextAntialiasing, false);
+    QPixmap bg = QPixmap();
+    bg.load(":assets/bg.png");
+    painter.fillRect(0, 0, 800, 600, QBrush(bg));
+    if (state != NULL) {
+        state->internal_render(&painter);
+    }
+}
+
+void Game::mousePressEvent(QMouseEvent *e)
+{
+    if (state != NULL) {
+        state->internal_onMousePressed(e->x() > 0 ? e->x() : 0, e->y() > 0 ? e->y() : 0, e->button());
+    }
+}
+
+void Game::mouseReleaseEvent(QMouseEvent *e)
+{
+    if (state != NULL) {
+        state->internal_onMouseReleased(e->x() > 0 ? e->x() : 0, e->y() > 0 ? e->y() : 0, e->button());
+    }
+}
+
+void Game::mouseMoveEvent(QMouseEvent *e)
+{
+    if (state != NULL) {
+        state->internal_onMouseMove(e->x() > 0 ? e->x() : 0, e->y() > 0 ? e->y() : 0);
+    }
+}
+
+void Game::wheelEvent(QWheelEvent *e)
+{
+    if (state != NULL) {
+        state->internal_onMouseScroll(e->angleDelta());
+    }
+}
+
+void Game::keyPressEvent(QKeyEvent *e)
+{
+    if (state != NULL) {
+        state->internal_onKeyPressed(e->key());
+    }
+}
+
+void Game::keyReleaseEvent(QKeyEvent *e)
+{
+    if (state != NULL) {
+        state->internal_onKeyReleased(e->key());
+    }
 }
