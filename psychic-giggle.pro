@@ -18,3 +18,5 @@ SOURCES += main.cpp\
 
 HEADERS  += game.h \
     basicdatafile.h
+
+RESOURCES = resources.qrc
