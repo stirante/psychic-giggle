@@ -27,7 +27,7 @@ bool Game::isRunning()
     return running;
 }
 
-void Game::closeEvent (QCloseEvent *event)
+void Game::closeEvent (QCloseEvent *)
 {
     running = false;
 }

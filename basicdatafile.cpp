@@ -58,14 +58,14 @@ void BasicDataFile::putBoolean(string key, bool val)
 
 void BasicDataFile::put(string key, string val)
 {
-    /*if (key.find("=") != key.end()) {
+    if (key.find("=") != string::npos) {
         cerr << "Key cannot containt '=' character!" << endl;
         return;
     }
-    if (val.find("=") != val.end()) {
+    if (val.find("=") != string::npos) {
         cerr << "Value cannot containt '=' character!" << endl;
         return;
-    }*/
+    }
     values[key] = val;
 }
 
