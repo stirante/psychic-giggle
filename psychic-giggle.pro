@@ -13,6 +13,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        game.cpp
+        game.cpp \
+    basicdatafile.cpp
 
-HEADERS  += game.h
+HEADERS  += game.h \
+    basicdatafile.h

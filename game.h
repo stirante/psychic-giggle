@@ -23,6 +23,7 @@ public:
      * @return true, if the game should be running
      */
     bool isRunning();
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // GAME_H

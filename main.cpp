@@ -1,7 +1,6 @@
 #include "game.h"
 #include <QApplication>
 #include <QTime>
-
 /**
  * time in milliseconds between every tick (20 ticks per second)
  */
