@@ -53,11 +53,19 @@ void BasicDataFile::putBoolean(string key, bool val)
 {
     ostringstream os;
     os << val;
-    values[key] = os.str();
+    put(key, os.str());
 }
 
 void BasicDataFile::put(string key, string val)
 {
+    /*if (key.find("=") != key.end()) {
+        cerr << "Key cannot containt '=' character!" << endl;
+        return;
+    }
+    if (val.find("=") != val.end()) {
+        cerr << "Value cannot containt '=' character!" << endl;
+        return;
+    }*/
     values[key] = val;
 }
 
@@ -70,32 +78,32 @@ void BasicDataFile::putInteger(string key, int val)
 {
     ostringstream os;
     os << val;
-    values[key] = os.str();
+    put(key, os.str());
 }
 void BasicDataFile::putFloat(string key, float val)
 {
     ostringstream os;
     os << val;
-    values[key] = os.str();
+    put(key, os.str());
 }
 void BasicDataFile::putDouble(string key, double val)
 {
     ostringstream os;
     os << val;
-    values[key] = os.str();
+    put(key, os.str());
 }
 void BasicDataFile::putLong(string key, long val)
 {
     ostringstream os;
     os << val;
-    values[key] = os.str();
+    put(key, os.str());
 }
 
 void BasicDataFile::putChar(string key, char val)
 {
     ostringstream os;
     os << val;
-    values[key] = os.str();
+    put(key, os.str());
 }
 
 bool BasicDataFile::save()
