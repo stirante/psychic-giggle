@@ -5,8 +5,11 @@
 #include <QPainter>
 #include "renderable.h"
 
-class State
+class State : public QObject
 {
+    Q_OBJECT
+
+
 public:
     State();
     virtual QString getName();
@@ -29,6 +32,11 @@ public:
     void internal_onMouseMove(int x, int y);
     void internal_onMouseScroll(QPoint angleDelta);
     void internal_init();
+
+    void setState(State*);
+
+    State* state = NULL;
+    bool close = false;
 
 
 protected:

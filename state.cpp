@@ -115,3 +115,8 @@ void State::internal_init()
 {
     init();
 }
+
+void State::setState(State *s)
+{
+    state = s;
+}

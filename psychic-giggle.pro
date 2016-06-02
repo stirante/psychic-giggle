@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     state.cpp \
     renderable.cpp \
     renderablegroup.cpp \
-    simplebutton.cpp
+    simplebutton.cpp \
+    mainmenustate.cpp
 
 HEADERS  += game.h \
     basicdatafile.h \
     state.h \
     renderable.h \
     renderablegroup.h \
-    simplebutton.h
+    simplebutton.h \
+    mainmenustate.h
 
 RESOURCES = resources.qrc

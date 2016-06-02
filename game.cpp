@@ -1,6 +1,7 @@
 #include "game.h"
 #include <QtWidgets>
 #include "state.h"
+#include "mainmenustate.h"
 
 Game::Game(QWidget *parent)
     : QWidget(parent)
@@ -12,6 +13,7 @@ Game::Game(QWidget *parent)
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont font(family);
     QApplication::setFont(font);
+    setState(new MainMenuState());
 }
 
 Game::~Game()
@@ -21,8 +23,13 @@ Game::~Game()
 
 void Game::update()
 {
-    if (state != NULL)
+    if (state != NULL) {
         state->internal_update();
+        if (state->state != NULL)
+            setState(state->state);
+        if (state->close)
+            close();
+    }
 }
 
 void Game::render()
@@ -97,4 +104,10 @@ void Game::keyReleaseEvent(QKeyEvent *e)
     if (state != NULL) {
         state->internal_onKeyReleased(e->key());
     }
+}
+
+void Game::setState(State *s)
+{
+    state = s;
+    s->init();
 }
