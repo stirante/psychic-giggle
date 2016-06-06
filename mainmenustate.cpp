@@ -2,6 +2,8 @@
 #include "simplebutton.h"
 #include "iostream"
 
+#include "gamestate.h"
+
 MainMenuState::MainMenuState()
 {
 }
@@ -24,6 +26,7 @@ void MainMenuState::init()
     renderables.push_back(play);
     renderables.push_back(exit);
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
+    connect(&*play, SIGNAL(onClick()), this, SLOT(onPlay()));
 }
 
 void MainMenuState::render(QPainter *)
@@ -69,4 +72,9 @@ void MainMenuState::onMouseScroll(QPoint angleDelta)
 void MainMenuState::onExit()
 {
     close = true;
+}
+
+void MainMenuState::onPlay()
+{
+    setState(new GameState());
 }

@@ -7,7 +7,6 @@ class Renderable;
 
 class RenderableGroup
 {
-    std::list<Renderable*> renderables;
 public:
     RenderableGroup();
     virtual void render(QPainter *);
@@ -15,6 +14,7 @@ public:
     virtual void onMousePressed(int x, int y, Qt::MouseButton button);
     virtual void onMouseReleased(int x, int y, Qt::MouseButton button);
     virtual void onMouseMove(int x, int y);
+    std::list<Renderable*> renderables;
 };
 
 #endif // RENDERABLEGROUP_H

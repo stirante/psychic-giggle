@@ -1,14 +1,18 @@
-#ifndef MAINMENUSTATE_H
-#define MAINMENUSTATE_H
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
 
+#include <QObject>
 #include "state.h"
+#include "renderablegroup.h"
 
-class MainMenuState : public State
+class GameState : public State
 {
     Q_OBJECT
-
+    int someInt = 0;
+    bool escClicked = false;
+    RenderableGroup* escMenu;
 public:
-    MainMenuState();
+    GameState();
     QString getName();
     void init();
     void render(QPainter *);
@@ -22,7 +26,6 @@ public:
 
 public slots:
     void onExit();
-    void onPlay();
 };
 
-#endif // MAINMENUSTATE_H
+#endif // GAMESTATE_H
