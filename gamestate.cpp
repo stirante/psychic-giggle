@@ -44,15 +44,30 @@ void GameState::update()
     if (escClicked) {
         escMenu->update();
     }
+    else {
+        if (keys[Qt::Key_Right]) {
+            map->offsetX -= 1;
+        }
+        else if (keys[Qt::Key_Left]) {
+            map->offsetX += 1;
+        }
+        if (keys[Qt::Key_Up]) {
+            map->offsetY += 1;
+        }
+        else if (keys[Qt::Key_Down]) {
+            map->offsetY -= 1;
+        }
+    }
 }
 
-void GameState::onKeyPressed(int)
+void GameState::onKeyPressed(int keycode)
 {
-
+    keys[keycode] = true;
 }
 
 void GameState::onKeyReleased(int keycode)
 {
+    keys[keycode] = false;
     if (keycode == Qt::Key_Escape) {
         escClicked = !escClicked;
     }

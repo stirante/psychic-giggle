@@ -5,6 +5,7 @@
 #include "state.h"
 #include "renderablegroup.h"
 #include "tilemap.h"
+#include "map"
 
 class GameState : public State
 {
@@ -12,6 +13,7 @@ class GameState : public State
     TileMap* map;
     bool escClicked = false;
     RenderableGroup* escMenu;
+    std::map<int, bool> keys;
 public:
     GameState();
     QString getName();

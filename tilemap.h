@@ -9,7 +9,6 @@ class TileMap : public Renderable
     int** map;
     std::map<int, QPixmap*> textures;
     int width, height;
-    int offsetX = 0, offsetY = 0;
 public:
     TileMap();
     bool load(QString);
@@ -18,6 +17,7 @@ public:
     virtual void onMousePressed(int x, int y, Qt::MouseButton button);
     virtual void onMouseReleased(int x, int y, Qt::MouseButton button);
     virtual void onMouseMove(int x, int y);
+    int offsetX = 0, offsetY = 0;
 };
 
 #endif // TILEMAP_H
