@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     renderablegroup.cpp \
     simplebutton.cpp \
     mainmenustate.cpp \
-    gamestate.cpp
+    gamestate.cpp \
+    tilemap.cpp
 
 HEADERS  += game.h \
     basicdatafile.h \
@@ -29,6 +30,7 @@ HEADERS  += game.h \
     renderablegroup.h \
     simplebutton.h \
     mainmenustate.h \
-    gamestate.h
+    gamestate.h \
+    tilemap.h
 
 RESOURCES = resources.qrc

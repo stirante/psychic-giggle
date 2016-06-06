@@ -56,9 +56,7 @@ void Game::paintEvent(QPaintEvent *)
     painter.setRenderHint(QPainter::Antialiasing, false);
     painter.setRenderHint(QPainter::HighQualityAntialiasing, false);
     painter.setRenderHint(QPainter::TextAntialiasing, false);
-    QPixmap bg = QPixmap();
-    bg.load(":assets/bg.png");
-    painter.fillRect(0, 0, 800, 600, QBrush(bg));
+    painter.fillRect(0, 0, 800, 600, QBrush(QColor(0, 0, 0)));
     if (state != NULL) {
         state->internal_render(&painter);
     }

@@ -4,11 +4,12 @@
 #include <QObject>
 #include "state.h"
 #include "renderablegroup.h"
+#include "tilemap.h"
 
 class GameState : public State
 {
     Q_OBJECT
-    int someInt = 0;
+    TileMap* map;
     bool escClicked = false;
     RenderableGroup* escMenu;
 public:
