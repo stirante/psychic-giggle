@@ -32,13 +32,20 @@ bool TileMap::load(QString name)
 
 void TileMap::render(QPainter *p)
 {
+    QRect rect;
+    rect.setWidth(16);
+    rect.setHeight(16);
     for(int y=0; y<height; ++y) {
         for(int x=0; x<width; ++x) {
-            int tileId = map[y][x];
-            if (tileId == 0) continue;
-            QPixmap *texture = textures[tileId];
-            QBrush brush(*texture);
-            p->fillRect(16 * x, 16 * y, 16, 16, brush);
+            rect.setX(x*16);
+            rect.setY(y*16);
+            if (p->window().contains(rect)) {
+                int tileId = map[y][x];
+                if (tileId == 0) continue;
+                QPixmap *texture = textures[tileId];
+                QBrush brush(*texture);
+                p->fillRect(16 * x - offsetX, 16 * y - offsetY, 16, 16, brush);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ class TileMap : public Renderable
     int** map;
     std::map<int, QPixmap*> textures;
     int width, height;
+    int offsetX = 0, offsetY = 0;
 public:
     TileMap();
     bool load(QString);

@@ -12,18 +12,14 @@ QString GameState::getName()
 {
     return QString("Game");
 }
-//temporary solution
-qreal scale = 3.5;
-int newHeight = 600/scale;
-int newWidth = 800/scale;
 
 void GameState::init()
 {
     escMenu = new RenderableGroup();
     SimpleButton* exit = new SimpleButton();
     exit->setText("Exit to main menu");
-    exit->setX((newWidth/2) - exit->getWidth()/2);
-    exit->setY((newHeight/2) - exit->getHeight()/2);
+    exit->setX(400 - exit->getWidth()/2);
+    exit->setY(300 - exit->getHeight()/2);
     escMenu->renderables.push_back(exit);
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
     map = new TileMap();
@@ -32,11 +28,13 @@ void GameState::init()
 
 void GameState::render(QPainter *p)
 {
-    p->scale(3.5, 3.5);
-    QRect exposedRect = p->matrix().inverted().mapRect(p->window()).adjusted(-1, -1, 1, 1);
-    map->render(p);
+    QPixmap* rendered = new QPixmap(800/3.5, 600/3.5);
+    rendered->fill(QColor(0, 0, 0));
+    QPainter* np = new QPainter(rendered);
+    map->render(np);
+    p->drawPixmap(p->window(), *rendered, rendered->rect());
     if (escClicked) {
-        p->fillRect(exposedRect, QBrush(QColor(0, 0, 0, 128)));
+        p->fillRect(p->window(), QBrush(QColor(0, 0, 0, 128)));
         escMenu->render(p);
     }
 }
@@ -64,7 +62,7 @@ void GameState::onMousePressed(int x, int y, Qt::MouseButton button)
 {
 
     if (escClicked) {
-        escMenu->onMousePressed(x/scale, y/scale, button);
+        escMenu->onMousePressed(x, y, button);
     }
 }
 
@@ -72,7 +70,7 @@ void GameState::onMouseReleased(int x, int y, Qt::MouseButton button)
 {
 
     if (escClicked) {
-        escMenu->onMouseReleased(x/scale, y/scale, button);
+        escMenu->onMouseReleased(x, y, button);
     }
 }
 
@@ -80,7 +78,7 @@ void GameState::onMouseMove(int x, int y)
 {
 
     if (escClicked) {
-        escMenu->onMouseMove(x/scale, y/scale);
+        escMenu->onMouseMove(x, y);
     }
 }
 
