@@ -32,22 +32,30 @@ bool TileMap::load(QString name)
 
 void TileMap::render(QPainter *p)
 {
+    QRect window = p->window();
     QRect rect;
-    rect.setWidth(16);
-    rect.setHeight(16);
     for(int y=0; y<height; ++y) {
         for(int x=0; x<width; ++x) {
-            rect.setX(x*16);
-            rect.setY(y*16);
-            if (p->window().contains(rect)) {
-                int tileId = map[y][x];
-                if (tileId == 0) continue;
+            int tileId = map[y][x];
+            if (tileId == 0) continue;
+            rect.setX(x*16 - offsetX);
+            rect.setY(y*16 - offsetY);
+            rect.setWidth(16);
+            rect.setHeight(16);
+            if (contains(window, rect)) {
                 QPixmap *texture = textures[tileId];
-                QBrush brush(*texture);
-                p->fillRect(16 * x - offsetX, 16 * y - offsetY, 16, 16, brush);
+                p->drawPixmap(rect, *texture, texture->rect());
             }
         }
     }
+}
+
+bool TileMap::contains(QRect rect1, QRect rect2)
+{
+    return rect1.contains(rect2.topLeft()) ||
+            rect1.contains(rect2.topRight()) ||
+            rect1.contains(rect2.bottomLeft()) ||
+            rect1.contains(rect2.bottomRight());
 }
 
 void TileMap::update()

@@ -28,11 +28,13 @@ void GameState::init()
 
 void GameState::render(QPainter *p)
 {
-    QPixmap* rendered = new QPixmap(800/3.5, 600/3.5);
+    QPixmap* rendered = new QPixmap(800/3, 600/3);
     rendered->fill(QColor(0, 0, 0));
     QPainter* np = new QPainter(rendered);
     map->render(np);
     p->drawPixmap(p->window(), *rendered, rendered->rect());
+    delete np;
+    delete rendered;
     if (escClicked) {
         p->fillRect(p->window(), QBrush(QColor(0, 0, 0, 128)));
         escMenu->render(p);
