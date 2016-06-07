@@ -9,6 +9,7 @@ class TileMap : public Renderable
     int** map;
     std::map<int, QPixmap*> textures;
     int width, height;
+    bool loaded = false;
     bool contains(QRect, QRect);
 public:
     TileMap();

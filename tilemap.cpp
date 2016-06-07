@@ -27,11 +27,13 @@ bool TileMap::load(QString name)
             if(!(file >> map[y][x])) return false;
         }
     }
+    loaded = true;
     return true;
 }
 
 void TileMap::render(QPainter *p)
 {
+    if (!loaded) return;
     QRect window = p->window();
     QRect rect;
     for(int y=0; y<height; ++y) {
