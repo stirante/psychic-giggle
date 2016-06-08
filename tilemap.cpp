@@ -92,3 +92,12 @@ void TileMap::addEntity(Entity *e)
 {
     entities.push_back(e);
 }
+
+int TileMap::getTile(int x, int y)
+{
+    if (y >= height) return 0;
+    if (x >= width) return 0;
+    if (y < 0) return 0;
+    if (x < 0) return 0;
+    return map[y][x];
+}

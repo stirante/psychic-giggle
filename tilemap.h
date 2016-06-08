@@ -12,7 +12,6 @@ class TileMap : public Renderable
     std::map<int, QPixmap*> textures;
     int width, height;
     bool loaded = false;
-    bool contains(QRect, QRect);
     std::list<Entity*> entities;
 public:
     TileMap();
@@ -23,6 +22,8 @@ public:
     void onMouseReleased(int x, int y, Qt::MouseButton button);
     void onMouseMove(int x, int y);
     void addEntity(Entity*);
+    bool contains(QRect, QRect);
+    int getTile(int, int);
     int offsetX = 0, offsetY = 0;
     std::map<int, bool>* keys;
 };
