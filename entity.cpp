@@ -58,7 +58,7 @@ void Entity::updatePhysics()
     bool done = false;
     for (int tx = (x/16)-1;tx <= (x/16)+1;tx++) {
         for (int ty = (y/16)-1;ty <= (y/16)+1;ty++) {
-            if (getMap()->getTile(tx, ty) == 0) continue;
+            if (getMap()->isWalkable(tx, ty)) continue;
             testRect.setX(tx * 16);
             testRect.setY(ty * 16);
             testRect.setWidth(16);
@@ -84,7 +84,7 @@ void Entity::updatePhysics()
     entityRect = getBoundingBox();
     for (int tx = (x/16)-1;tx <= (x/16)+1;tx++) {
         for (int ty = (y/16)-1;ty <= (y/16)+1;ty++) {
-            if (getMap()->getTile(tx, ty) == 0) continue;
+            if (getMap()->isWalkable(tx, ty)) continue;
             testRect.setX(tx * 16);
             testRect.setY(ty * 16);
             testRect.setWidth(16);

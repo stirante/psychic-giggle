@@ -16,16 +16,16 @@ void Player::die()
 
 void Player::updateLogic()
 {
-    if ((*(getMap()->keys))[Qt::Key_Up]) {
+    if (getMap()->isKeyDown(Qt::Key_Up)) {
         velocityY -= speed;
     }
-    else if ((*(getMap()->keys))[Qt::Key_Down]) {
+    else if (getMap()->isKeyDown(Qt::Key_Down)) {
         velocityY += speed;
     }
-    if ((*(getMap()->keys))[Qt::Key_Right]) {
+    if (getMap()->isKeyDown(Qt::Key_Right)) {
         velocityX += speed;
     }
-    else if ((*(getMap()->keys))[Qt::Key_Left]) {
+    else if (getMap()->isKeyDown(Qt::Key_Left)) {
         velocityX -= speed;
     }
 }

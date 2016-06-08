@@ -26,7 +26,6 @@ void GameState::init()
     map = new TileMap();
 //    map->load("testMap.txt");
     map->generateMaze();
-    map->keys = keys;
     pl = new Player(map);
     map->addEntity(pl);
 }
@@ -60,12 +59,12 @@ void GameState::update()
 
 void GameState::onKeyPressed(int keycode)
 {
-    (*keys)[keycode] = true;
+    (*map->keys)[keycode] = true;
 }
 
 void GameState::onKeyReleased(int keycode)
 {
-    (*keys)[keycode] = false;
+    (*map->keys)[keycode] = false;
     if (keycode == Qt::Key_Escape) {
         escClicked = !escClicked;
     }

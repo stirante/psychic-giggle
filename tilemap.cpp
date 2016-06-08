@@ -45,7 +45,7 @@ void TileMap::generateMaze() {
     std::list<std::pair<int, int>> drillers;
     for (size_t x=0;x<width+2;x++)
         for (size_t y=0;y<height+2;y++)
-            map[y][x]=1;
+            map[y][x]=wallId;
 
     drillers.push_back(std::make_pair(width/2,height/2));
     while(drillers.size()>0)
@@ -60,39 +60,39 @@ void TileMap::generateMaze() {
             {
             case 0:
                 (*m).second-=2;
-                if ((*m).second<0 || map[(*m).second+1][(*m).first+1] == 0)
+                if ((*m).second<0 || isWalkable(map[(*m).second+1][(*m).first+1]))
                 {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second+2][(*m).first+1]=0;
+                map[(*m).second+2][(*m).first+1]=groundId;
                 break;
             case 1:
                 (*m).second+=2;
-                if ((*m).second>=height-2 || map[(*m).second+1][(*m).first+1] == 0)
+                if ((*m).second>=height-2 || isWalkable(map[(*m).second+1][(*m).first+1]))
                 {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second][(*m).first+1]=0;
+                map[(*m).second][(*m).first+1]=groundId;
                 break;
             case 2:
                 (*m).first-=2;
-                if ((*m).first<0 || map[(*m).second+1][(*m).first+1] == 0)
+                if ((*m).first<0 || isWalkable(map[(*m).second+1][(*m).first+1]))
                 {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second+1][(*m).first+2]=0;
+                map[(*m).second+1][(*m).first+2]=groundId;
                 break;
             case 3:
                 (*m).first+=2;
-                if ((*m).first>=width-2 || map[(*m).second+1][(*m).first+1] == 0)
+                if ((*m).first>=width-2 || isWalkable(map[(*m).second+1][(*m).first+1]))
                 {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second+1][(*m).first]=0;
+                map[(*m).second+1][(*m).first]=groundId;
                 break;
             }
             if (remove_driller)
@@ -102,9 +102,9 @@ void TileMap::generateMaze() {
                 drillers.push_back(std::make_pair((*m).first,(*m).second));
                 // for easier maze
                 //if (rand()%2)
-                    drillers.push_back(std::make_pair((*m).first,(*m).second));
+                drillers.push_back(std::make_pair((*m).first,(*m).second));
 
-                map[(*m).second+1][(*m).first+1]=0;
+                map[(*m).second+1][(*m).first+1]=groundId;
                 ++m;
             }
         }
@@ -147,6 +147,22 @@ bool TileMap::contains(QRect rect1, QRect rect2)
             rect1.contains(rect2.bottomRight());
 }
 
+bool TileMap::isWalkable(int id)
+{
+    switch (id) {
+    case 0:
+    case 1:
+        return true;
+    case 2:
+        return false;
+    }
+}
+
+bool TileMap::isWalkable(int x, int y)
+{
+    return isWalkable(getTile(x, y));
+}
+
 void TileMap::update()
 {
     for (std::list<Entity*>::iterator i = entities.begin();i != entities.end();i++) {
@@ -183,4 +199,9 @@ int TileMap::getTile(int x, int y)
     if (y < 0) return 0;
     if (x < 0) return 0;
     return map[y][x];
+}
+
+bool TileMap::isKeyDown(int keycode)
+{
+    return (*keys)[keycode];
 }
