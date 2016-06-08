@@ -33,7 +33,7 @@ bool TileMap::load(QString name)
     loaded = true;
     return true;
 }
-
+//Code from http://www.roguebasin.com/index.php?title=Simple_maze and modified to our needs
 void TileMap::generateMaze() {
     srand(time(0));
     width=30;
