@@ -19,7 +19,7 @@ public:
     TileMap();
     ~TileMap();
     bool load(QString);
-    void generateMaze(int, int);
+    void generateMaze(int, int, bool);
     void render(QPainter *);
     void update();
     void onMousePressed(int x, int y, Qt::MouseButton button);
@@ -33,6 +33,10 @@ public:
     int offsetX = 0, offsetY = 0;
     bool isKeyDown(int);
     std::map<int, bool>* keys = new std::map<int, bool>();
+    int minX = 2000;
+    int minY = 2000;
+    int maxX = 0;
+    int maxY = 0;
 };
 
 #endif // TILEMAP_H

@@ -24,9 +24,10 @@ void GameState::init()
     escMenu->renderables.push_back(exit);
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
     map = new TileMap();
-//    map->load("testMap.txt");
-    map->generateMaze(30, 25);
+    map->generateMaze(mazeWidth, mazeHeight, easy);
     pl = new Player(map);
+    pl->setX(map->minX*16);
+    pl->setY(map->minY*16);
     map->addEntity(pl);
 }
 
@@ -52,6 +53,23 @@ void GameState::update()
     }
     else {
         map->update();
+        if (pl->changeMap) {
+            delete map;
+            if (!easy) {
+                easy = !easy;
+                mazeHeight += 5;
+                mazeWidth += 5;
+            }
+            else {
+                easy = !easy;
+            }
+            map = new TileMap();
+            map->generateMaze(mazeWidth, mazeHeight, easy);
+            pl = new Player(map);
+            pl->setX(map->minX*16);
+            pl->setY(map->minY*16);
+            map->addEntity(pl);
+        }
         map->offsetX = 400/3 - pl->getX();
         map->offsetY = 300/3 - pl->getY();
     }
@@ -84,10 +102,10 @@ void GameState::onMouseReleased(int x, int y, Qt::MouseButton button)
     }
     else {
         //debug change map
-        map = new TileMap();
-        map->generateMaze(30, 25);
-        pl = new Player(map);
-        map->addEntity(pl);
+        //        map = new TileMap();
+        //        map->generateMaze(30, 25);
+        //        pl = new Player(map);
+        //        map->addEntity(pl);
     }
 }
 

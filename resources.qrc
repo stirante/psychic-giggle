@@ -1,11 +1,12 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>assets/dirt.png</file>
-    <file>assets/player.png</file>
-    <file>assets/kenvector_future.ttf</file>
-    <file>assets/cobble.png</file>
-    <file>assets/buttonIdle.png</file>
-    <file>assets/buttonHover.png</file>
-    <file>assets/buttonPress.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>assets/dirt.png</file>
+        <file>assets/player.png</file>
+        <file>assets/kenvector_future.ttf</file>
+        <file>assets/cobble.png</file>
+        <file>assets/buttonIdle.png</file>
+        <file>assets/buttonHover.png</file>
+        <file>assets/buttonPress.png</file>
+        <file>assets/arrow.png</file>
+    </qresource>
 </RCC>

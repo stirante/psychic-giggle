@@ -4,6 +4,7 @@
 #include <time.h>
 #include <vector>
 #include <list>
+#include <QDebug>
 
 TileMap::TileMap()
 {
@@ -48,7 +49,8 @@ bool TileMap::load(QString name)
     return true;
 }
 //Code from http://www.roguebasin.com/index.php?title=Simple_maze and modified to our needs
-void TileMap::generateMaze(int mazeWidth, int mazeHeight) {
+void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
+    qDebug() << "Generating maze " << mazeWidth << "x" << mazeHeight << " with difficulty: " << (easy ? "easy" : "hard");
     srand(time(0));
     width=mazeWidth;
     height=mazeHeight;
@@ -114,9 +116,8 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight) {
             else
             {
                 drillers.push_back(std::make_pair((*m).first,(*m).second));
-                // for easier maze
-                //if (rand()%2)
-                drillers.push_back(std::make_pair((*m).first,(*m).second));
+                if (rand()%2 && easy)
+                    drillers.push_back(std::make_pair((*m).first,(*m).second));
 
                 map[(*m).second+1][(*m).first+1]=groundId;
                 ++m;
@@ -125,6 +126,23 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight) {
     }
     width += 2;
     height += 2;
+    for(int y=1; y<height-1; ++y) {
+        for(int x=1; x<width-1; ++x) {
+            if (isWalkable(x, y)) {
+                if (minX * minY > x * y) {
+                    minX = x;
+                    minY = y;
+                }
+                else if (maxX * maxY < x * y) {
+                    maxX = x;
+                    maxY = y;
+                }
+            }
+        }
+    }
+    map[maxY][maxX] = 0;
+    map[minY][minX] = 0;
+
     loaded = true;
 }
 

@@ -16,6 +16,9 @@ class GameState : public State
     bool escClicked = false;
     RenderableGroup* escMenu;
     Player* pl;
+    int mazeWidth = 30;
+    int mazeHeight = 30;
+    bool easy = true;
 public:
     GameState();
     QString getName();
