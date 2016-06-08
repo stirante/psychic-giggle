@@ -1,6 +1,9 @@
 #include "tilemap.h"
 #include <iostream>
 #include <fstream>
+#include <time.h>
+#include <vector>
+#include <list>
 
 TileMap::TileMap()
 {
@@ -31,6 +34,84 @@ bool TileMap::load(QString name)
     return true;
 }
 
+void TileMap::generateMaze() {
+    srand(time(0));
+    width=30;
+    height=25;
+    map = new int*[height];
+    for(int i = 0; i < height; ++i) {
+        map[i] = new int[width];
+    }
+    std::list<std::pair<int, int>> drillers;
+    for (size_t x=0;x<width;x++)
+        for (size_t y=0;y<height;y++)
+            map[y][x]=0;
+
+    drillers.push_back(std::make_pair(width/2,height/2));
+    while(drillers.size()>0)
+    {
+        std::list<std::pair<int, int>>::iterator m,_m,temp;
+        m=drillers.begin();
+        _m=drillers.end();
+        while (m!=_m)
+        {
+            bool remove_driller=false;
+            switch(rand()%4)
+            {
+            case 0:
+                (*m).second-=2;
+                if ((*m).second<0 || map[(*m).second][(*m).first] != 0)
+                {
+                    remove_driller=true;
+                    break;
+                }
+                map[(*m).second+1][(*m).first]=1;
+                break;
+            case 1:
+                (*m).second+=2;
+                if ((*m).second>=height || map[(*m).second][(*m).first] != 0)
+                {
+                    remove_driller=true;
+                    break;
+                }
+                map[(*m).second-1][(*m).first]=1;
+                break;
+            case 2:
+                (*m).first-=2;
+                if ((*m).first<0 || map[(*m).second][(*m).first] == 1)
+                {
+                    remove_driller=true;
+                    break;
+                }
+                map[(*m).second][(*m).first+1]=1;
+                break;
+            case 3:
+                (*m).first+=2;
+                if ((*m).first>=width || map[(*m).second][(*m).first] != 0)
+                {
+                    remove_driller=true;
+                    break;
+                }
+                map[(*m).second][(*m).first-1]=1;
+                break;
+            }
+            if (remove_driller)
+                m = drillers.erase(m);
+            else
+            {
+                drillers.push_back(std::make_pair((*m).first,(*m).second));
+                // for easier maze
+                // if (rand()%2)
+                drillers.push_back(std::make_pair((*m).first,(*m).second));
+
+                map[(*m).second][(*m).first]=1;
+                ++m;
+            }
+        }
+    }
+    loaded = true;
+}
+
 void TileMap::render(QPainter *p)
 {
     if (!loaded) return;
@@ -40,8 +121,8 @@ void TileMap::render(QPainter *p)
         for(int x=0; x<width; ++x) {
             int tileId = map[y][x];
             if (tileId == 0) continue;
-            rect.setX(x*16 - offsetX);
-            rect.setY(y*16 - offsetY);
+            rect.setX(x*16 + offsetX);
+            rect.setY(y*16 + offsetY);
             rect.setWidth(16);
             rect.setHeight(16);
             if (contains(window, rect)) {

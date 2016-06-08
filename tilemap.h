@@ -16,6 +16,7 @@ class TileMap : public Renderable
 public:
     TileMap();
     bool load(QString);
+    void generateMaze();
     void render(QPainter *);
     void update();
     void onMousePressed(int x, int y, Qt::MouseButton button);

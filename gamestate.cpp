@@ -24,7 +24,8 @@ void GameState::init()
     escMenu->renderables.push_back(exit);
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
     map = new TileMap();
-    map->load("testMap.txt");
+//    map->load("testMap.txt");
+    map->generateMaze();
     map->keys = keys;
     pl = new Player(map);
     map->addEntity(pl);
@@ -52,6 +53,8 @@ void GameState::update()
     }
     else {
         map->update();
+        map->offsetX = 400/3 - pl->getX();
+        map->offsetY = 300/3 - pl->getY();
     }
 }
 
