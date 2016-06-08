@@ -26,7 +26,7 @@ void GameState::init()
     map = new TileMap();
     map->load("testMap.txt");
     map->keys = keys;
-    Player* pl = new Player(map);
+    pl = new Player(map);
     map->addEntity(pl);
 }
 
@@ -52,18 +52,6 @@ void GameState::update()
     }
     else {
         map->update();
-        /*if (keys[Qt::Key_Right]) {
-            map->offsetX -= 1;
-        }
-        else if (keys[Qt::Key_Left]) {
-            map->offsetX += 1;
-        }
-        if (keys[Qt::Key_Up]) {
-            map->offsetY += 1;
-        }
-        else if (keys[Qt::Key_Down]) {
-            map->offsetY -= 1;
-        }*/
     }
 }
 
@@ -82,7 +70,6 @@ void GameState::onKeyReleased(int keycode)
 
 void GameState::onMousePressed(int x, int y, Qt::MouseButton button)
 {
-
     if (escClicked) {
         escMenu->onMousePressed(x, y, button);
     }
@@ -90,15 +77,18 @@ void GameState::onMousePressed(int x, int y, Qt::MouseButton button)
 
 void GameState::onMouseReleased(int x, int y, Qt::MouseButton button)
 {
-
     if (escClicked) {
         escMenu->onMouseReleased(x, y, button);
+    }
+    else {
+        //debug teleport
+        pl->setX(x/3);
+        pl->setY(y/3);
     }
 }
 
 void GameState::onMouseMove(int x, int y)
 {
-
     if (escClicked) {
         escMenu->onMouseMove(x, y);
     }

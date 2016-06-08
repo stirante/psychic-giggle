@@ -7,6 +7,8 @@
 #include "tilemap.h"
 #include "map"
 
+class Player;
+
 class GameState : public State
 {
     Q_OBJECT
@@ -14,6 +16,7 @@ class GameState : public State
     bool escClicked = false;
     RenderableGroup* escMenu;
     std::map<int, bool>* keys = new std::map<int, bool>();
+    Player* pl;
 public:
     GameState();
     QString getName();
