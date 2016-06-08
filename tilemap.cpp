@@ -118,7 +118,8 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
                 drillers.push_back(std::make_pair((*m).first,(*m).second));
                 if (rand()%2 && easy)
                     drillers.push_back(std::make_pair((*m).first,(*m).second));
-
+                else if (!easy)
+                    drillers.push_back(std::make_pair((*m).first,(*m).second));
                 map[(*m).second+1][(*m).first+1]=groundId;
                 ++m;
             }
