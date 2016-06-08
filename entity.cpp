@@ -1,5 +1,6 @@
 #include "entity.h"
 #include "tilemap.h"
+#include <QDebug>
 
 Entity::Entity(TileMap*m)
 {
@@ -48,12 +49,59 @@ TileMap *Entity::getMap()
 
 void Entity::updatePhysics()
 {
-    velocityX *= 0.3;
-    velocityY *= 0.3;
+    velocityX *= friction;
     if (velocityX < 0.05 && velocityX > -0.05) velocityX = 0;
-    if (velocityY < 0.05 && velocityY > -0.05) velocityY = 0;
     x += velocityX;
+    //horizontal collisions
+    QRect testRect;
+    QRect entityRect = getBoundingBox();
+    bool done = false;
+    for (int tx = (x/16)-1;tx <= (x/16)+1;tx++) {
+        for (int ty = (y/16)-1;ty <= (y/16)+1;ty++) {
+            if (getMap()->getTile(tx, ty) == 0) continue;
+            testRect.setX(tx * 16);
+            testRect.setY(ty * 16);
+            testRect.setWidth(16);
+            testRect.setHeight(16);
+            if (getMap()->contains(entityRect, testRect)) {
+                if (velocityX > 0) {
+                    x = testRect.left() - width;
+                }
+                else {
+                    x = testRect.right() + 1;
+                }
+                done = true;
+                break;
+            }
+        }
+        if (done) break;
+    }
+    done = false;
+    velocityY *= friction;
+    if (velocityY < 0.05 && velocityY > -0.05) velocityY = 0;
     y += velocityY;
+    //vertical collisions
+    entityRect = getBoundingBox();
+    for (int tx = (x/16)-1;tx <= (x/16)+1;tx++) {
+        for (int ty = (y/16)-1;ty <= (y/16)+1;ty++) {
+            if (getMap()->getTile(tx, ty) == 0) continue;
+            testRect.setX(tx * 16);
+            testRect.setY(ty * 16);
+            testRect.setWidth(16);
+            testRect.setHeight(16);
+            if (getMap()->contains(entityRect, testRect)) {
+                if (velocityY > 0) {
+                    y = testRect.top() - height;
+                }
+                else {
+                    y = testRect.bottom() + 1;
+                }
+                done = true;
+                break;
+            }
+        }
+        if (done) break;
+    }
 }
 
 void Entity::die()

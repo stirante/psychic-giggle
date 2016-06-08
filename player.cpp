@@ -3,7 +3,10 @@
 
 Player::Player(TileMap *m):Entity(m)
 {
-
+    width = 16;
+    height = 16;
+    x = 5 * 16;
+    y = 5 * 16;
 }
 
 void Player::die()
@@ -14,16 +17,16 @@ void Player::die()
 void Player::updateLogic()
 {
     if ((*(getMap()->keys))[Qt::Key_Up]) {
-        velocityY -= 10;
+        velocityY -= speed;
     }
     else if ((*(getMap()->keys))[Qt::Key_Down]) {
-        velocityY += 10;
+        velocityY += speed;
     }
     if ((*(getMap()->keys))[Qt::Key_Right]) {
-        velocityX += 10;
+        velocityX += speed;
     }
     else if ((*(getMap()->keys))[Qt::Key_Left]) {
-        velocityX -= 10;
+        velocityX -= speed;
     }
 }
 
@@ -34,7 +37,7 @@ QString Player::getType()
 
 void Player::render(QPainter *p)
 {
-    p->fillRect(x + getMap()->offsetX, y + getMap()->offsetY, 16, 16, QBrush(QColor(255, 0, 0)));
+    p->fillRect(x + getMap()->offsetX, y + getMap()->offsetY, width, height, QBrush(QColor(255, 0, 0)));
 }
 
 void Player::init()

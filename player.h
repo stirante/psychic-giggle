@@ -5,6 +5,7 @@
 
 class Player : public Entity
 {
+    float speed = 20;
 public:
     Player(TileMap*);
     void die();
