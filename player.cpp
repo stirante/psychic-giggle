@@ -3,8 +3,8 @@
 
 Player::Player(TileMap *m):Entity(m)
 {
-    width = 16;
-    height = 16;
+    width = 13;
+    height = 13;
     x = 5 * 16;
     y = 5 * 16;
 }

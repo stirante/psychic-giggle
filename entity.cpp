@@ -63,7 +63,7 @@ void Entity::updatePhysics()
             testRect.setY(ty * 16);
             testRect.setWidth(16);
             testRect.setHeight(16);
-            if (getMap()->contains(entityRect, testRect)) {
+            if (getMap()->contains(testRect, entityRect)) {
                 if (velocityX > 0) {
                     x = testRect.left() - width;
                 }
@@ -89,7 +89,7 @@ void Entity::updatePhysics()
             testRect.setY(ty * 16);
             testRect.setWidth(16);
             testRect.setHeight(16);
-            if (getMap()->contains(entityRect, testRect)) {
+            if (getMap()->contains(testRect, entityRect)) {
                 if (velocityY > 0) {
                     y = testRect.top() - height;
                 }
