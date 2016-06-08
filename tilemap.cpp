@@ -50,6 +50,10 @@ void TileMap::render(QPainter *p)
             }
         }
     }
+    for (std::list<Entity*>::iterator i = entities.begin();i != entities.end();i++) {
+        Entity *ent = dynamic_cast<Entity*>(*&*i);
+        ent->render(p);
+    }
 }
 
 bool TileMap::contains(QRect rect1, QRect rect2)
@@ -62,7 +66,11 @@ bool TileMap::contains(QRect rect1, QRect rect2)
 
 void TileMap::update()
 {
-
+    for (std::list<Entity*>::iterator i = entities.begin();i != entities.end();i++) {
+        Entity *ent = dynamic_cast<Entity*>(*&*i);
+        ent->updateLogic();
+        ent->updatePhysics();
+    }
 }
 
 void TileMap::onMousePressed(int x, int y, Qt::MouseButton button)
@@ -78,4 +86,9 @@ void TileMap::onMouseReleased(int x, int y, Qt::MouseButton button)
 void TileMap::onMouseMove(int x, int y)
 {
 
+}
+
+void TileMap::addEntity(Entity *e)
+{
+    entities.push_back(e);
 }

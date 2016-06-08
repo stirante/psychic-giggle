@@ -13,7 +13,7 @@ class GameState : public State
     TileMap* map;
     bool escClicked = false;
     RenderableGroup* escMenu;
-    std::map<int, bool> keys;
+    std::map<int, bool>* keys = new std::map<int, bool>();
 public:
     GameState();
     QString getName();

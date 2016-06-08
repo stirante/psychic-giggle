@@ -2,6 +2,7 @@
 
 #include "simplebutton.h"
 #include "mainmenustate.h"
+#include "player.h"
 
 GameState::GameState()
 {
@@ -24,6 +25,9 @@ void GameState::init()
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
     map = new TileMap();
     map->load("testMap.txt");
+    map->keys = keys;
+    Player* pl = new Player(map);
+    map->addEntity(pl);
 }
 
 void GameState::render(QPainter *p)
@@ -47,7 +51,8 @@ void GameState::update()
         escMenu->update();
     }
     else {
-        if (keys[Qt::Key_Right]) {
+        map->update();
+        /*if (keys[Qt::Key_Right]) {
             map->offsetX -= 1;
         }
         else if (keys[Qt::Key_Left]) {
@@ -58,18 +63,18 @@ void GameState::update()
         }
         else if (keys[Qt::Key_Down]) {
             map->offsetY -= 1;
-        }
+        }*/
     }
 }
 
 void GameState::onKeyPressed(int keycode)
 {
-    keys[keycode] = true;
+    (*keys)[keycode] = true;
 }
 
 void GameState::onKeyReleased(int keycode)
 {
-    keys[keycode] = false;
+    (*keys)[keycode] = false;
     if (keycode == Qt::Key_Escape) {
         escClicked = !escClicked;
     }

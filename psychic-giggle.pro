@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     simplebutton.cpp \
     mainmenustate.cpp \
     gamestate.cpp \
-    tilemap.cpp
+    tilemap.cpp \
+    entity.cpp \
+    player.cpp
 
 HEADERS  += game.h \
     basicdatafile.h \
@@ -31,6 +33,8 @@ HEADERS  += game.h \
     simplebutton.h \
     mainmenustate.h \
     gamestate.h \
-    tilemap.h
+    tilemap.h \
+    entity.h \
+    player.h
 
 RESOURCES = resources.qrc

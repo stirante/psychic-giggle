@@ -3,6 +3,8 @@
 
 #include "renderable.h"
 #include <map>
+#include <list>
+#include "entity.h"
 
 class TileMap : public Renderable
 {
@@ -11,15 +13,18 @@ class TileMap : public Renderable
     int width, height;
     bool loaded = false;
     bool contains(QRect, QRect);
+    std::list<Entity*> entities;
 public:
     TileMap();
     bool load(QString);
-    virtual void render(QPainter *);
-    virtual void update();
-    virtual void onMousePressed(int x, int y, Qt::MouseButton button);
-    virtual void onMouseReleased(int x, int y, Qt::MouseButton button);
-    virtual void onMouseMove(int x, int y);
+    void render(QPainter *);
+    void update();
+    void onMousePressed(int x, int y, Qt::MouseButton button);
+    void onMouseReleased(int x, int y, Qt::MouseButton button);
+    void onMouseMove(int x, int y);
+    void addEntity(Entity*);
     int offsetX = 0, offsetY = 0;
+    std::map<int, bool>* keys;
 };
 
 #endif // TILEMAP_H
