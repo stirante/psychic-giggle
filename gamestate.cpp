@@ -25,7 +25,7 @@ void GameState::init()
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
     map = new TileMap();
 //    map->load("testMap.txt");
-    map->generateMaze();
+    map->generateMaze(30, 25);
     pl = new Player(map);
     map->addEntity(pl);
 }
@@ -83,9 +83,11 @@ void GameState::onMouseReleased(int x, int y, Qt::MouseButton button)
         escMenu->onMouseReleased(x, y, button);
     }
     else {
-        //debug teleport
-        pl->setX(x/3);
-        pl->setY(y/3);
+        //debug change map
+        map = new TileMap();
+        map->generateMaze(30, 25);
+        pl = new Player(map);
+        map->addEntity(pl);
     }
 }
 

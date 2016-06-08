@@ -15,6 +15,20 @@ TileMap::TileMap()
     textures[2] = pix;
 }
 
+TileMap::~TileMap()
+{
+    for(int i = 0; i < height; ++i)
+        delete [] map[i];
+    delete [] map;
+    for (std::map<int, QPixmap*>::iterator i = textures.begin();i != textures.end();i++) {
+        delete i->second;
+    }
+    for (std::list<Entity*>::iterator i = entities.begin();i != entities.end();i++) {
+        Entity *ent = dynamic_cast<Entity*>(*&*i);
+        delete ent;
+    }
+}
+
 bool TileMap::load(QString name)
 {
     std::ifstream file(name.toStdString().c_str());
@@ -34,10 +48,10 @@ bool TileMap::load(QString name)
     return true;
 }
 //Code from http://www.roguebasin.com/index.php?title=Simple_maze and modified to our needs
-void TileMap::generateMaze() {
+void TileMap::generateMaze(int mazeWidth, int mazeHeight) {
     srand(time(0));
-    width=30;
-    height=25;
+    width=mazeWidth;
+    height=mazeHeight;
     map = new int*[height+2];
     for(int i = 0; i < height+2; ++i) {
         map[i] = new int[width+2];

@@ -17,8 +17,9 @@ class TileMap : public Renderable
     std::list<Entity*> entities;
 public:
     TileMap();
+    ~TileMap();
     bool load(QString);
-    void generateMaze();
+    void generateMaze(int, int);
     void render(QPainter *);
     void update();
     void onMousePressed(int x, int y, Qt::MouseButton button);
