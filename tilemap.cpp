@@ -38,13 +38,13 @@ void TileMap::generateMaze() {
     srand(time(0));
     width=30;
     height=25;
-    map = new int*[height];
-    for(int i = 0; i < height; ++i) {
-        map[i] = new int[width];
+    map = new int*[height+2];
+    for(int i = 0; i < height+2; ++i) {
+        map[i] = new int[width+2];
     }
     std::list<std::pair<int, int>> drillers;
-    for (size_t x=0;x<width;x++)
-        for (size_t y=0;y<height;y++)
+    for (size_t x=0;x<width+2;x++)
+        for (size_t y=0;y<height+2;y++)
             map[y][x]=1;
 
     drillers.push_back(std::make_pair(width/2,height/2));
@@ -60,39 +60,39 @@ void TileMap::generateMaze() {
             {
             case 0:
                 (*m).second-=2;
-                if ((*m).second<0 || map[(*m).second][(*m).first] == 0)
+                if ((*m).second<0 || map[(*m).second+1][(*m).first+1] == 0)
                 {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second+1][(*m).first]=0;
+                map[(*m).second+2][(*m).first+1]=0;
                 break;
             case 1:
                 (*m).second+=2;
-                if ((*m).second>=height || map[(*m).second][(*m).first] == 0)
-                {
-                    remove_driller=true;
-                    break;
-                }
-                map[(*m).second-1][(*m).first]=0;
-                break;
-            case 2:
-                (*m).first-=2;
-                if ((*m).first<0 || map[(*m).second][(*m).first] == 0)
+                if ((*m).second>=height-2 || map[(*m).second+1][(*m).first+1] == 0)
                 {
                     remove_driller=true;
                     break;
                 }
                 map[(*m).second][(*m).first+1]=0;
                 break;
-            case 3:
-                (*m).first+=2;
-                if ((*m).first>=width || map[(*m).second][(*m).first] == 0)
+            case 2:
+                (*m).first-=2;
+                if ((*m).first<0 || map[(*m).second+1][(*m).first+1] == 0)
                 {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second][(*m).first-1]=0;
+                map[(*m).second+1][(*m).first+2]=0;
+                break;
+            case 3:
+                (*m).first+=2;
+                if ((*m).first>=width-2 || map[(*m).second+1][(*m).first+1] == 0)
+                {
+                    remove_driller=true;
+                    break;
+                }
+                map[(*m).second+1][(*m).first]=0;
                 break;
             }
             if (remove_driller)
@@ -104,11 +104,13 @@ void TileMap::generateMaze() {
                 //if (rand()%2)
                     drillers.push_back(std::make_pair((*m).first,(*m).second));
 
-                map[(*m).second][(*m).first]=0;
+                map[(*m).second+1][(*m).first+1]=0;
                 ++m;
             }
         }
     }
+    width += 2;
+    height += 2;
     loaded = true;
 }
 
