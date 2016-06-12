@@ -9,7 +9,7 @@ Game::Game(QWidget *parent)
     setWindowTitle("Psychic Giggle");
     setMinimumSize(800, 600);
     setMouseTracking(true);
-    int id = QFontDatabase::addApplicationFont(":/assets/kenvector_future.ttf");
+    int id = QFontDatabase::addApplicationFont(":/assets/Endless Boss Battle.ttf");
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont font(family);
     QApplication::setFont(font);

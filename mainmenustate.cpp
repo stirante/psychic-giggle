@@ -16,22 +16,26 @@ QString MainMenuState::getName()
 void MainMenuState::init()
 {
     SimpleButton* play = new SimpleButton();
-    play->setText("Play");
+    play->setText("Start");
     play->setX(400 - play->getWidth()/2);
-    play->setY(300 - (play->getHeight()/2 + 10));
+    play->setY(350 - (play->getHeight()/2 + 10));
     SimpleButton* exit = new SimpleButton();
-    exit->setText("Exit");
+    exit->setText("Quit");
     exit->setX(400 - exit->getWidth()/2);
-    exit->setY(300 + (exit->getHeight()/2 + 10));
+    exit->setY(350 + (exit->getHeight()/2 + 10));
     renderables.push_back(play);
     renderables.push_back(exit);
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
     connect(&*play, SIGNAL(onClick()), this, SLOT(onPlay()));
 }
 
-void MainMenuState::render(QPainter *)
+void MainMenuState::render(QPainter *p)
 {
-
+    p->setPen(Qt::white);
+    QFont f = p->font();
+    f.setPointSize(60);
+    p->setFont(f);
+    p->drawText(0, 0, 800, 300, Qt::AlignCenter, "psychic giggle");
 }
 
 void MainMenuState::update()

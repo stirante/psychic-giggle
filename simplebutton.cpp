@@ -35,7 +35,7 @@ void SimpleButton::render(QPainter * painter)
     painter->drawPixmap(this->getX(), this->getY(), *state);
     if (text != NULL) {
         QFont font = painter->font();
-        font.setPointSize(10);
+        font.setPointSize(15);
         painter->setFont(font);
         painter->drawText(this->getX(), this->getY(), getWidth(), getHeight(), Qt::AlignCenter, text);
     }
