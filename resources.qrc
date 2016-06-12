@@ -6,5 +6,6 @@
         <file>assets/buttonHover.png</file>
         <file>assets/buttonPress.png</file>
         <file>assets/Endless Boss Battle.ttf</file>
+        <file>assets/finish.png</file>
     </qresource>
 </RCC>

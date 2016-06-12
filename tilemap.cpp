@@ -14,6 +14,9 @@ TileMap::TileMap()
     pix = new QPixmap();
     pix->load(":assets/cobble.png");
     textures[2] = pix;
+    pix = new QPixmap();
+    pix->load(":assets/finish.png");
+    textures[3] = pix;
 }
 
 TileMap::~TileMap()
@@ -141,8 +144,8 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
             }
         }
     }
-    map[maxY][maxX] = 0;
-    map[minY][minX] = 0;
+    map[maxY][maxX] = 3;
+//    map[minY][minX] = 0;
 
     loaded = true;
 }
@@ -185,6 +188,7 @@ bool TileMap::isWalkable(int id)
     switch (id) {
     case 0:
     case 1:
+    case 3:
         return true;
     case 2:
         return false;
