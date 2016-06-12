@@ -41,8 +41,6 @@ QString Player::getType()
 void Player::render(QPainter *p)
 {
     p->fillRect(x + getMap()->offsetX, y + getMap()->offsetY, width, height, QBrush(QColor(255, 0, 0)));
-    p->setBrush(QBrush(QColor(0, 0, 0)));
-    p->drawLine(x + getMap()->offsetX + width/2, y + getMap()->offsetY + height/2, getMap()->maxX*16 + getMap()->offsetX + 8, getMap()->maxY*16 + getMap()->offsetY + 8);
 }
 
 void Player::init()
