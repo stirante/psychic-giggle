@@ -6,6 +6,7 @@
 Game::Game(QWidget *parent)
     : QWidget(parent)
 {
+    qDebug() << "Starting psychic-giggle v1.0";
     setWindowTitle("Psychic Giggle");
     setMinimumSize(800, 600);
     setMouseTracking(true);
@@ -99,6 +100,15 @@ void Game::keyPressEvent(QKeyEvent *e)
 
 void Game::keyReleaseEvent(QKeyEvent *e)
 {
+    if (e->key() == Qt::Key_F2) {
+        QPixmap screen = grab();
+        QFile file("screenshot-" + QDateTime::currentDateTime().toString(Qt::ISODate) + ".png");
+        file.open(QIODevice::WriteOnly);
+        screen.save(&file, "PNG");
+        file.flush();
+        file.close();
+        qDebug() << QFileInfo(file).absoluteFilePath();
+    }
     if (state != NULL) {
         state->internal_onKeyReleased(e->key());
     }
@@ -106,6 +116,7 @@ void Game::keyReleaseEvent(QKeyEvent *e)
 
 void Game::setState(State *s)
 {
+    qDebug() << "Changed state to " + s->getName();
     state = s;
     s->init();
 }
