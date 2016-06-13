@@ -8,17 +8,35 @@
 #include "pathfinder.h"
 #include "gamestate.h"
 
-TileMap::TileMap(GameState *g)
+int TileMap::getGround()
+{
+    return (rand() % 6) + 4;
+}
+
+int TileMap::getWall()
+{
+    return (rand() % 3) + 1;
+}
+
+void TileMap::registerTile(int id, QString texture)
 {
     QPixmap* pix = new QPixmap();
-    pix->load(":assets/dirt.png");
-    textures[1] = pix;
-    pix = new QPixmap();
-    pix->load(":assets/cobble.png");
-    textures[2] = pix;
-    pix = new QPixmap();
-    pix->load(":assets/finish.png");
-    textures[3] = pix;
+    pix->load(":assets/" + texture);
+    textures[id] = pix;
+}
+
+TileMap::TileMap(GameState *g)
+{
+    registerTile(1, "1.png");
+    registerTile(2, "2.png");
+    registerTile(3, "3.png");
+    registerTile(4, "1a.png");
+    registerTile(5, "1b.png");
+    registerTile(6, "1c.png");
+    registerTile(7, "1aa.png");
+    registerTile(8, "1bb.png");
+    registerTile(9, "1cc.png");
+    registerTile(10, "klapa.png");
     game = g;
 }
 
@@ -68,7 +86,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
     std::list<std::pair<int, int>> drillers;
     for (size_t x=0;x<width+2;x++)
         for (size_t y=0;y<height+2;y++)
-            map[y][x]=wallId;
+            map[y][x]=getWall();
 
     drillers.push_back(std::make_pair(width/2,height/2));
     while(drillers.size()>0)
@@ -88,7 +106,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second+2][(*m).first+1]=groundId;
+                map[(*m).second+2][(*m).first+1]=getGround();
                 break;
             case 1:
                 (*m).second+=2;
@@ -97,7 +115,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second][(*m).first+1]=groundId;
+                map[(*m).second][(*m).first+1]=getGround();
                 break;
             case 2:
                 (*m).first-=2;
@@ -106,7 +124,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second+1][(*m).first+2]=groundId;
+                map[(*m).second+1][(*m).first+2]=getGround();
                 break;
             case 3:
                 (*m).first+=2;
@@ -115,7 +133,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
                     remove_driller=true;
                     break;
                 }
-                map[(*m).second+1][(*m).first]=groundId;
+                map[(*m).second+1][(*m).first]=getGround();
                 break;
             }
             if (remove_driller)
@@ -127,7 +145,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
                     drillers.push_back(std::make_pair((*m).first,(*m).second));
                 else if (!easy)
                     drillers.push_back(std::make_pair((*m).first,(*m).second));
-                map[(*m).second+1][(*m).first+1]=groundId;
+                map[(*m).second+1][(*m).first+1]=getGround();
                 ++m;
             }
         }
@@ -148,7 +166,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
             }
         }
     }
-    map[maxY][maxX] = 3;
+    map[maxY][maxX] = 10;
 //    map[minY][minX] = 0;
 
     finder = new Pathfinder(this);
@@ -192,10 +210,17 @@ bool TileMap::isWalkable(int id)
 {
     switch (id) {
     case 0:
-    case 1:
-    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
         return true;
+    case 1:
     case 2:
+    case 3:
         return false;
     }
 }
@@ -267,4 +292,16 @@ Pathfinder *TileMap::getPathfinder()
 GameState *TileMap::getGameState()
 {
     return game;
+}
+
+Entity *TileMap::collides(Entity *e)
+{
+    QRect box = e->getBoundingBox();
+    for (std::list<Entity*>::iterator i = entities.begin();i != entities.end();i++) {
+        Entity *ent = dynamic_cast<Entity*>(*&*i);
+        if (ent != e) {
+            if (contains(box, ent->getBoundingBox())) return ent;
+        }
+    }
+    return NULL;
 }

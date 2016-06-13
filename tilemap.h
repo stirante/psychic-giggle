@@ -15,11 +15,14 @@ class TileMap : public Renderable
     std::map<int, QPixmap*> textures;
     int width, height;
     bool loaded = false;
-    int wallId = 2;
-    int groundId = 1;
+    //int wallId = 2;
+    //int groundId = 1;
     std::list<Entity*> entities;
     Pathfinder* finder;
     GameState* game;
+    int getGround();
+    int getWall();
+    void registerTile(int, QString);
 public:
     TileMap(GameState*);
     ~TileMap();
@@ -41,6 +44,7 @@ public:
     int getHeight();
     Pathfinder* getPathfinder();
     GameState* getGameState();
+    Entity* collides(Entity*);
     std::map<int, bool>* keys = new std::map<int, bool>();
     int minX = 2000;
     int minY = 2000;

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,7 +26,9 @@ SOURCES += main.cpp\
     player.cpp \
     pathfinder.cpp \
     pathnode.cpp \
-    monster.cpp
+    monster.cpp \
+    fadeelement.cpp \
+    gameoverstate.cpp
 
 HEADERS  += game.h \
     basicdatafile.h \
@@ -41,6 +43,8 @@ HEADERS  += game.h \
     player.h \
     pathfinder.h \
     pathnode.h \
-    monster.h
+    monster.h \
+    fadeelement.h \
+    gameoverstate.h
 
 RESOURCES = resources.qrc

@@ -27,6 +27,12 @@ void MainMenuState::init()
     renderables.push_back(exit);
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
     connect(&*play, SIGNAL(onClick()), this, SLOT(onPlay()));
+    fade = new FadeElement();
+    fade->setTime(150);
+    fade->setToTransparent(true);
+    renderables.push_back(fade);
+    connect(&*fade, SIGNAL(onEnd()), this, SLOT(onFadeEnd()));
+    fade->start();
 }
 
 void MainMenuState::render(QPainter *p)
@@ -75,10 +81,22 @@ void MainMenuState::onMouseScroll(QPoint)
 
 void MainMenuState::onExit()
 {
-    close = true;
+    exitClicked = true;
+    fade->setTime(150);
+    fade->setToTransparent(false);
+    fade->start();
 }
 
 void MainMenuState::onPlay()
 {
-    setState(new GameState());
+    playClicked = true;
+    fade->setTime(150);
+    fade->setToTransparent(false);
+    fade->start();
+}
+
+void MainMenuState::onFadeEnd()
+{
+    if (playClicked) setState(new GameState());
+    if (exitClicked) close = true;
 }

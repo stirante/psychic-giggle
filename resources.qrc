@@ -1,11 +1,24 @@
 <RCC>
     <qresource prefix="/">
-        <file>assets/dirt.png</file>
-        <file>assets/cobble.png</file>
         <file>assets/buttonIdle.png</file>
         <file>assets/buttonHover.png</file>
         <file>assets/buttonPress.png</file>
         <file>assets/Endless Boss Battle.ttf</file>
-        <file>assets/finish.png</file>
+        <file>assets/1.png</file>
+        <file>assets/1a.png</file>
+        <file>assets/1b.png</file>
+        <file>assets/1c.png</file>
+        <file>assets/2.png</file>
+        <file>assets/3.png</file>
+        <file>assets/gracz.png</file>
+        <file>assets/gracz2.png</file>
+        <file>assets/klapa.png</file>
+        <file>assets/plamy.png</file>
+        <file>assets/wrog.png</file>
+        <file>assets/wrog2.png</file>
+        <file>assets/1aa.png</file>
+        <file>assets/1bb.png</file>
+        <file>assets/1cc.png</file>
+        <file>assets/Creepy-Laugh.mp3</file>
     </qresource>
 </RCC>

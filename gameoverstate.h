@@ -1,18 +1,17 @@
-#ifndef MAINMENUSTATE_H
-#define MAINMENUSTATE_H
+#ifndef GAMEOVERSTATE_H
+#define GAMEOVERSTATE_H
 
 #include "state.h"
 #include "fadeelement.h"
 
-class MainMenuState : public State
+class GameOverState : public State
 {
     Q_OBJECT
 
-    FadeElement* fade;
-    bool playClicked = false;
     bool exitClicked = false;
+    FadeElement* fade;
 public:
-    MainMenuState();
+    GameOverState();
     QString getName();
     void init();
     void render(QPainter *);
@@ -26,8 +25,7 @@ public:
 
 public slots:
     void onExit();
-    void onPlay();
     void onFadeEnd();
 };
 
-#endif // MAINMENUSTATE_H
+#endif // GAMEOVERSTATE_H

@@ -12,7 +12,7 @@ int SimpleButton::getHeight()
     return height;
 }
 
-SimpleButton::SimpleButton() : SimpleButton(190, 50)
+SimpleButton::SimpleButton() : SimpleButton(190*1.5, 50*1.5)
 {
 }
 
@@ -32,7 +32,7 @@ SimpleButton::SimpleButton(int width, int height)
 void SimpleButton::render(QPainter * painter)
 {
     painter->setPen(Qt::white);
-    painter->drawPixmap(this->getX(), this->getY(), *state);
+    painter->drawPixmap(this->getX(), this->getY(), width, height, *state);
     if (text != NULL) {
         QFont font = painter->font();
         font.setPointSize(15);
@@ -61,7 +61,7 @@ void SimpleButton::onMouseReleased(int x, int y, Qt::MouseButton)
 
 void SimpleButton::onMouseMove(int x, int y)
 {
-    if (state != pressed && x >= getX() && y >= getY() && x <= getX() + state->width() && y <= getY() + state->height()) {
+    if (state != pressed && x >= getX() && y >= getY() && x <= getX() + getWidth() && y <= getY() + getHeight()) {
         state = hover;
     }
     else if (state == hover) {

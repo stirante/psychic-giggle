@@ -6,6 +6,10 @@
 class Monster : public Entity
 {
     int xChange, yChange, lastX, lastY, counter;
+    int texIndex = 0;
+    QPixmap* texture1;
+    QPixmap* texture2;
+    int dir = 0;
 public:
     Monster(TileMap*);
     ~Monster();

@@ -57,7 +57,7 @@ void Game::paintEvent(QPaintEvent *)
     painter.setRenderHint(QPainter::Antialiasing, false);
     painter.setRenderHint(QPainter::HighQualityAntialiasing, false);
     painter.setRenderHint(QPainter::TextAntialiasing, false);
-    painter.fillRect(0, 0, 800, 600, QBrush(QColor(0, 0, 0)));
+    painter.fillRect(0, 0, 800, 600, QBrush(QColor(110,14,16)));
     if (state != NULL) {
         state->internal_render(&painter);
     }
@@ -117,6 +117,8 @@ void Game::keyReleaseEvent(QKeyEvent *e)
 void Game::setState(State *s)
 {
     qDebug() << "Changed state to " << s->getName();
+    if (state != NULL)
+        delete state;
     state = s;
     s->init();
 }

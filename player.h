@@ -8,9 +8,11 @@
 class Player : public Entity
 {
     float speed = 20;
-//    int startX;
-//    int startY;
-//    QString path = "";
+    int texIndex = 0;
+    QPixmap* texture1;
+    QPixmap* texture2;
+    int dir = 0;
+    int cooldown = 0;
 public:
     Player(TileMap*);
     ~Player();
@@ -20,6 +22,7 @@ public:
     void render(QPainter*);
     void init();
     bool changeMap = false;
+    int health = 2;
 };
 
 #endif // PLAYER_H

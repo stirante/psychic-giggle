@@ -4,10 +4,17 @@
 #include "mainmenustate.h"
 #include "player.h"
 #include "monster.h"
+#include "fadeelement.h"
+#include "gameoverstate.h"
 
 GameState::GameState()
 {
+    blood = new QPixmap(":assets/plamy.png");
+}
 
+GameState::~GameState()
+{
+    delete blood;
 }
 
 QString GameState::getName()
@@ -34,6 +41,11 @@ void GameState::init()
     m->setX(map->maxX*16);
     m->setY(map->maxY*16);
     map->addEntity(m);
+    FadeElement* fade = new FadeElement();
+    fade->setTime(150);
+    fade->setToTransparent(true);
+    renderables.push_back(fade);
+    fade->start();
 }
 
 void GameState::render(QPainter *p)
@@ -45,8 +57,13 @@ void GameState::render(QPainter *p)
     p->drawPixmap(p->window(), *rendered, rendered->rect());
     delete np;
     delete rendered;
+    if (pl->health < 2) {
+        p->setOpacity(0.7);
+        p->drawPixmap(0, 0, *blood);
+        p->setOpacity(1);
+    }
     if (escClicked) {
-        p->fillRect(p->window(), QBrush(QColor(0, 0, 0, 128)));
+        p->fillRect(p->window(), QBrush(QColor(110,14,16, 128)));
         escMenu->render(p);
     }
 }
@@ -81,6 +98,9 @@ void GameState::update()
         }
         map->offsetX = 400/3 - pl->getX();
         map->offsetY = 300/3 - pl->getY();
+        if (pl->health <= 0) {
+            setState(new GameOverState());
+        }
     }
 }
 
@@ -109,13 +129,6 @@ void GameState::onMouseReleased(int x, int y, Qt::MouseButton button)
     if (escClicked) {
         escMenu->onMouseReleased(x, y, button);
     }
-    else {
-        //debug change map
-        //        map = new TileMap();
-        //        map->generateMaze(30, 25);
-        //        pl = new Player(map);
-        //        map->addEntity(pl);
-    }
 }
 
 void GameState::onMouseMove(int x, int y)
@@ -125,7 +138,7 @@ void GameState::onMouseMove(int x, int y)
     }
 }
 
-void GameState::onMouseScroll(QPoint angleDelta)
+void GameState::onMouseScroll(QPoint)
 {
 
 }

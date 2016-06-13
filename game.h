@@ -8,7 +8,7 @@ class Game : public QWidget
 {
     Q_OBJECT
     bool running = true;
-    State* state;
+    State* state = NULL;
 public:
     Game(QWidget *parent = 0);
     ~Game();

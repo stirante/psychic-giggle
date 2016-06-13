@@ -5,8 +5,10 @@
 
 Monster::Monster(TileMap *m):Entity(m)
 {
-    width = 14;
-    height = 14;
+    width = 13;
+    height = 13;
+    texture1 = new QPixmap(":assets/wrog.png");
+    texture2 = new QPixmap(":assets/wrog2.png");
 }
 
 Monster::~Monster()
@@ -34,10 +36,24 @@ void Monster::updateLogic()
         }
     }
     counter++;
-    if (counter >= 5) {
+    if (counter >= 2) {
         counter = 0;
         setX(getX() + xChange);
         setY(getY() + yChange);
+    }
+    texIndex++;
+    if (texIndex >= 32) texIndex = 0;
+    if (xChange > 0) {
+        dir = 1;
+    }
+    else if (xChange < 0) {
+        dir = 3;
+    }
+    if (yChange > 0) {
+        dir = 2;
+    }
+    if (yChange < 0) {
+        dir = 0;
     }
 }
 
@@ -48,7 +64,12 @@ QString Monster::getType()
 
 void Monster::render(QPainter *p)
 {
-    p->fillRect(getX() + getMap()->offsetX, getY() + getMap()->offsetY, width, height, QBrush(QColor(255, 0, 0)));
+    QPixmap* tx = texIndex > 8 ? texture1 : texture2;
+    QPixmap tex = tx->transformed(QTransform()
+                                .translate(-width/2, -height/2)
+                                .rotate(dir*90)
+                                .translate(width/2, height/2));
+    p->drawPixmap(getX() + getMap()->offsetX, getY() + getMap()->offsetY, tex);
 }
 
 void Monster::init()

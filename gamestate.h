@@ -19,8 +19,10 @@ class GameState : public State
     int mazeWidth = 30;
     int mazeHeight = 30;
     bool easy = true;
+    QPixmap* blood;
 public:
     GameState();
+    ~GameState();
     QString getName();
     void init();
     void render(QPainter *);
