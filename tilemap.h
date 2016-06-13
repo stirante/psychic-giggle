@@ -6,6 +6,8 @@
 #include <list>
 #include "entity.h"
 
+class Pathfinder;
+
 class TileMap : public Renderable
 {
     int** map;
@@ -15,6 +17,7 @@ class TileMap : public Renderable
     int wallId = 2;
     int groundId = 1;
     std::list<Entity*> entities;
+    Pathfinder* finder;
 public:
     TileMap();
     ~TileMap();
@@ -32,6 +35,9 @@ public:
     int getTile(int, int);
     int offsetX = 0, offsetY = 0;
     bool isKeyDown(int);
+    int getWidth();
+    int getHeight();
+    Pathfinder* getPathfinder();
     std::map<int, bool>* keys = new std::map<int, bool>();
     int minX = 2000;
     int minY = 2000;

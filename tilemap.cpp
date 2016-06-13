@@ -5,6 +5,7 @@
 #include <vector>
 #include <list>
 #include <QDebug>
+#include "pathfinder.h"
 
 TileMap::TileMap()
 {
@@ -49,6 +50,7 @@ bool TileMap::load(QString name)
         }
     }
     loaded = true;
+    finder = new Pathfinder(this);
     return true;
 }
 //Code from http://www.roguebasin.com/index.php?title=Simple_maze and modified to our needs
@@ -147,6 +149,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
     map[maxY][maxX] = 3;
 //    map[minY][minX] = 0;
 
+    finder = new Pathfinder(this);
     loaded = true;
 }
 
@@ -227,6 +230,7 @@ void TileMap::onMouseMove(int x, int y)
 void TileMap::addEntity(Entity *e)
 {
     entities.push_back(e);
+    e->init();
 }
 
 int TileMap::getTile(int x, int y)
@@ -241,4 +245,19 @@ int TileMap::getTile(int x, int y)
 bool TileMap::isKeyDown(int keycode)
 {
     return (*keys)[keycode];
+}
+
+int TileMap::getWidth()
+{
+    return width;
+}
+
+int TileMap::getHeight()
+{
+    return height;
+}
+
+Pathfinder *TileMap::getPathfinder()
+{
+    return finder;
 }

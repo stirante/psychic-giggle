@@ -3,13 +3,17 @@
 
 #include "entity.h"
 #include <QPixmap>
+#include "pathfinder.h"
 
 class Player : public Entity
 {
     float speed = 20;
-    QPixmap* arrow;
+    int startX;
+    int startY;
+    QString path = "";
 public:
     Player(TileMap*);
+    ~Player();
     void die();
     void updateLogic();
     QString getType();

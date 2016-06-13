@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     gamestate.cpp \
     tilemap.cpp \
     entity.cpp \
-    player.cpp
+    player.cpp \
+    pathfinder.cpp \
+    pathnode.cpp
 
 HEADERS  += game.h \
     basicdatafile.h \
@@ -35,6 +37,8 @@ HEADERS  += game.h \
     gamestate.h \
     tilemap.h \
     entity.h \
-    player.h
+    player.h \
+    pathfinder.h \
+    pathnode.h
 
 RESOURCES = resources.qrc
