@@ -1,7 +1,7 @@
 #include "pathfinder.h"
 #include <queue>
 
-//Using havily modified version of A* algorithm implementation from http://code.activestate.com/recipes/577457-a-star-shortest-path-algorithm/
+//Using modified version of A* algorithm implementation from http://code.activestate.com/recipes/577457-a-star-shortest-path-algorithm/
 
 const int Pathfinder::dx[4]={1, 0, -1, 0};
 const int Pathfinder::dy[4]={0, 1, 0, -1};

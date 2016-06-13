@@ -18,7 +18,6 @@ public:
     void nextLevel();
     int estimate(int xDest, int yDest);
     bool operator<(const PathNode& right) const;
-//    bool operator<(const PathNode b);
 };
 
 #endif // PATHNODE_H
