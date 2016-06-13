@@ -102,12 +102,12 @@ void Game::keyReleaseEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_F2) {
         QPixmap screen = grab();
-        QFile file("screenshot-" + QDateTime::currentDateTime().toString(Qt::ISODate) + ".png");
+        QFile file(QDateTime::currentDateTime().toString("dd-MM-yyyy hh-mm-ss-zzz") + ".png");
         file.open(QIODevice::WriteOnly);
         screen.save(&file, "PNG");
         file.flush();
         file.close();
-        qDebug() << QFileInfo(file).absoluteFilePath();
+        qDebug() << "Saved " << QFileInfo(file).absoluteFilePath();
     }
     if (state != NULL) {
         state->internal_onKeyReleased(e->key());
@@ -116,7 +116,7 @@ void Game::keyReleaseEvent(QKeyEvent *e)
 
 void Game::setState(State *s)
 {
-    qDebug() << "Changed state to " + s->getName();
+    qDebug() << "Changed state to " << s->getName();
     state = s;
     s->init();
 }
