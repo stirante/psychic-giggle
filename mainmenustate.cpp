@@ -53,22 +53,22 @@ void MainMenuState::onKeyReleased(int)
 
 }
 
-void MainMenuState::onMousePressed(int x, int y, Qt::MouseButton button)
+void MainMenuState::onMousePressed(int, int, Qt::MouseButton)
 {
 
 }
 
-void MainMenuState::onMouseReleased(int x, int y, Qt::MouseButton button)
+void MainMenuState::onMouseReleased(int, int, Qt::MouseButton)
 {
 
 }
 
-void MainMenuState::onMouseMove(int x, int y)
+void MainMenuState::onMouseMove(int, int)
 {
 
 }
 
-void MainMenuState::onMouseScroll(QPoint angleDelta)
+void MainMenuState::onMouseScroll(QPoint)
 {
 
 }

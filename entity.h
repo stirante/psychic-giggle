@@ -32,7 +32,7 @@ protected:
     int height = 0;
     float velocityX = 0;
     float velocityY = 0;
-    float friction = 0.2;
+    float friction = 0.2f;
 private:
     bool dead = false;
     TileMap* map;
