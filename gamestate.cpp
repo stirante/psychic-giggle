@@ -3,6 +3,7 @@
 #include "simplebutton.h"
 #include "mainmenustate.h"
 #include "player.h"
+#include "monster.h"
 
 GameState::GameState()
 {
@@ -23,12 +24,16 @@ void GameState::init()
     exit->setY(300 - exit->getHeight()/2);
     escMenu->renderables.push_back(exit);
     connect(&*exit, SIGNAL(onClick()), this, SLOT(onExit()));
-    map = new TileMap();
+    map = new TileMap(this);
     map->generateMaze(mazeWidth, mazeHeight, easy);
     pl = new Player(map);
     pl->setX(map->minX*16);
     pl->setY(map->minY*16);
     map->addEntity(pl);
+    Monster* m = new Monster(map);
+    m->setX(map->maxX*16);
+    m->setY(map->maxY*16);
+    map->addEntity(m);
 }
 
 void GameState::render(QPainter *p)
@@ -63,12 +68,16 @@ void GameState::update()
             else {
                 easy = !easy;
             }
-            map = new TileMap();
+            map = new TileMap(this);
             map->generateMaze(mazeWidth, mazeHeight, easy);
             pl = new Player(map);
             pl->setX(map->minX*16);
             pl->setY(map->minY*16);
             map->addEntity(pl);
+            Monster* m = new Monster(map);
+            m->setX(map->maxX*16);
+            m->setY(map->maxY*16);
+            map->addEntity(m);
         }
         map->offsetX = 400/3 - pl->getX();
         map->offsetY = 300/3 - pl->getY();
@@ -119,6 +128,11 @@ void GameState::onMouseMove(int x, int y)
 void GameState::onMouseScroll(QPoint angleDelta)
 {
 
+}
+
+Player *GameState::getPlayer()
+{
+    return pl;
 }
 
 void GameState::onExit()

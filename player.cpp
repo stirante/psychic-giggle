@@ -44,19 +44,19 @@ QString Player::getType()
 
 void Player::render(QPainter *p)
 {
-    int x = startX;
-    int y = startY;
-    for (int i = 0; i < path.length()-1;i++) {
-        x = Pathfinder::translateX(i, x, path);
-        y = Pathfinder::translateY(i, y, path);
-        p->fillRect(x*16 + getMap()->offsetX, y*16 + getMap()->offsetY, 16, 16, QBrush(QColor(0, 0, 255)));
-    }
+//    int x = startX;
+//    int y = startY;
+//    for (int i = 0; i < path.length()-1;i++) {
+//        x = Pathfinder::translateX(i, x, path);
+//        y = Pathfinder::translateY(i, y, path);
+//        p->fillRect(x*16 + getMap()->offsetX, y*16 + getMap()->offsetY, 16, 16, QBrush(QColor(0, 0, 255)));
+//    }
     p->fillRect(getX() + getMap()->offsetX, getY() + getMap()->offsetY, width, height, QBrush(QColor(0, 255, 0)));
 }
 
 void Player::init()
 {
-    startX = getX()/16;
-    startY = getY()/16;
-    path = getMap()->getPathfinder()->findPath(startX, startY, getMap()->maxX, getMap()->maxY);
+//    startX = getX()/16;
+//    startY = getY()/16;
+//    path = getMap()->getPathfinder()->findPath(startX, startY, getMap()->maxX, getMap()->maxY);
 }

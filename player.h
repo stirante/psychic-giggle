@@ -8,9 +8,9 @@
 class Player : public Entity
 {
     float speed = 20;
-    int startX;
-    int startY;
-    QString path = "";
+//    int startX;
+//    int startY;
+//    QString path = "";
 public:
     Player(TileMap*);
     ~Player();

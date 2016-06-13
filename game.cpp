@@ -7,7 +7,7 @@ Game::Game(QWidget *parent)
     : QWidget(parent)
 {
     qDebug() << "Starting psychic-giggle v1.0";
-    setWindowTitle("Psychic Giggle");
+    setWindowTitle("psychic giggle");
     setMinimumSize(800, 600);
     setMouseTracking(true);
     int id = QFontDatabase::addApplicationFont(":/assets/Endless Boss Battle.ttf");

@@ -6,8 +6,9 @@
 #include <list>
 #include <QDebug>
 #include "pathfinder.h"
+#include "gamestate.h"
 
-TileMap::TileMap()
+TileMap::TileMap(GameState *g)
 {
     QPixmap* pix = new QPixmap();
     pix->load(":assets/dirt.png");
@@ -18,6 +19,7 @@ TileMap::TileMap()
     pix = new QPixmap();
     pix->load(":assets/finish.png");
     textures[3] = pix;
+    game = g;
 }
 
 TileMap::~TileMap()
@@ -260,4 +262,9 @@ int TileMap::getHeight()
 Pathfinder *TileMap::getPathfinder()
 {
     return finder;
+}
+
+GameState *TileMap::getGameState()
+{
+    return game;
 }

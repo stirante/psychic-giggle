@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     entity.cpp \
     player.cpp \
     pathfinder.cpp \
-    pathnode.cpp
+    pathnode.cpp \
+    monster.cpp
 
 HEADERS  += game.h \
     basicdatafile.h \
@@ -39,6 +40,7 @@ HEADERS  += game.h \
     entity.h \
     player.h \
     pathfinder.h \
-    pathnode.h
+    pathnode.h \
+    monster.h
 
 RESOURCES = resources.qrc

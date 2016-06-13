@@ -7,6 +7,7 @@
 #include "entity.h"
 
 class Pathfinder;
+class GameState;
 
 class TileMap : public Renderable
 {
@@ -18,8 +19,9 @@ class TileMap : public Renderable
     int groundId = 1;
     std::list<Entity*> entities;
     Pathfinder* finder;
+    GameState* game;
 public:
-    TileMap();
+    TileMap(GameState*);
     ~TileMap();
     bool load(QString);
     void generateMaze(int, int, bool);
@@ -38,6 +40,7 @@ public:
     int getWidth();
     int getHeight();
     Pathfinder* getPathfinder();
+    GameState* getGameState();
     std::map<int, bool>* keys = new std::map<int, bool>();
     int minX = 2000;
     int minY = 2000;

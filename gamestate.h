@@ -31,6 +31,7 @@ public:
     void onMouseReleased(int x, int y, Qt::MouseButton button);
     void onMouseMove(int x, int y);
     void onMouseScroll(QPoint angleDelta);
+    Player* getPlayer();
 
 public slots:
     void onExit();
