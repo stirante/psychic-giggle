@@ -5,7 +5,7 @@
 
 class Monster : public Entity
 {
-    int xChange, yChange, lastX, lastY, counter;
+    int xChange = 0, yChange = 0, lastX = 0, lastY = 0, counter = 0;
     int texIndex = 0;
     QPixmap* texture1;
     QPixmap* texture2;

@@ -1,7 +1,6 @@
 #include "gameoverstate.h"
 #include "simplebutton.h"
 #include "mainmenustate.h"
-#include <QSound>
 
 GameOverState::GameOverState()
 {
@@ -27,7 +26,6 @@ void GameOverState::init()
     renderables.push_back(fade);
     connect(&*fade, SIGNAL(onEnd()), this, SLOT(onFadeEnd()));
     fade->start();
-    QSound::play(":assets/Creepy-Laugh.mp3");
 }
 
 void GameOverState::render(QPainter *p)

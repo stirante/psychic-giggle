@@ -83,7 +83,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
     for(int i = 0; i < height+2; ++i) {
         map[i] = new int[width+2];
     }
-    std::list<std::pair<int, int>> drillers;
+    std::list<std::pair<int, int> > drillers;
     for (size_t x=0;x<width+2;x++)
         for (size_t y=0;y<height+2;y++)
             map[y][x]=getWall();
@@ -91,7 +91,7 @@ void TileMap::generateMaze(int mazeWidth, int mazeHeight, bool easy) {
     drillers.push_back(std::make_pair(width/2,height/2));
     while(drillers.size()>0)
     {
-        std::list<std::pair<int, int>>::iterator m,_m,temp;
+        std::list<std::pair<int, int> >::iterator m,_m,temp;
         m=drillers.begin();
         _m=drillers.end();
         while (m!=_m)

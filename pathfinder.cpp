@@ -1,5 +1,6 @@
 #include "pathfinder.h"
 #include <queue>
+#include <qdebug.h>
 
 //Using modified version of A* algorithm implementation from http://code.activestate.com/recipes/577457-a-star-shortest-path-algorithm/
 
@@ -126,17 +127,17 @@ QString Pathfinder::findPath(int xStart, int yStart, int xFinish, int yFinish)
 int Pathfinder::translateX(int index, int x, QString path)
 {
     if (path.length() <= index) return x;
-    char c = path.toStdString().at(index);
-    int j=std::atoi(&c);
-    x=x+dx[j];
+    QChar c = path.at(index);
+    if (!c.isDigit()) return x;
+    x=x+dx[c.digitValue()];
     return x;
 }
 
 int Pathfinder::translateY(int index, int y, QString path)
 {
     if (path.length() <= index) return y;
-    char c = path.toStdString().at(index);
-    int j=std::atoi(&c);
-    y=y+dy[j];
+    QChar c = path.at(index);
+    if (!c.isDigit()) return y;
+    y=y+dy[c.digitValue()];
     return y;
 }
